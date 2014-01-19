@@ -235,6 +235,8 @@ print "</font>";
 else {}
 
 #Beginning of C++ program core
+use Inline CPP => Config =>
+               INC => "-I ./";
 use Inline CPP => <<'ENDCPP';
 
 /*********************************************************
