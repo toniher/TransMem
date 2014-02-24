@@ -22,7 +22,7 @@ using namespace std;
 KSEQ_INIT(gzFile, gzread)
 
 float Argos21_3(const char *);
-string Transmem( double, double, int, char*, int );
+string Transmem( double, double, int, char*, char*, int );
 
 int main( int argc, char *argv[] ) {
 	gzFile fp;
@@ -39,11 +39,11 @@ int main( int argc, char *argv[] ) {
 	while ((l = kseq_read(seq)) >= 0) {
 	
 		string outcome;
-		printf("name: %s\n", seq->name.s);
-		if (seq->comment.l) printf("comment: %s\n", seq->comment.s);
-		printf("seq: %s\n", seq->seq.s);
-		if (seq->qual.l) printf("qual: %s\n", seq->qual.s);
-		outcome = Transmem( 0, 0, 9, seq->seq.s, 1 );
+		//printf("name: %s\n", seq->name.s);
+		//if (seq->comment.l) printf("comment: %s\n", seq->comment.s);
+		//printf("seq: %s\n", seq->seq.s);
+		//if (seq->qual.l) printf("qual: %s\n", seq->qual.s);
+		outcome = Transmem( 0, 0, 9, seq->name.s, seq->seq.s, 1 );
 		cout << outcome;
 	}
 	
@@ -53,7 +53,7 @@ int main( int argc, char *argv[] ) {
 	
 }
 
-string Transmem( double beg, double fin, int ent, char* protseq, int check ) {
+string Transmem( double beg, double fin, int ent, char* seqid, char* protseq, int check ) {
 
 	string Neuras(string, string);
 
@@ -105,7 +105,7 @@ string Transmem( double beg, double fin, int ent, char* protseq, int check ) {
 			if (sig==1) {ssign="-";}
 			if (sig==0) {ssign="+";}
 		
-			Detstring = Numstring + "|" + NeuroText.substr((long int)(i+10),1)+"->" + ssign + (string)itoa(dec) + "." + Resstring + "\n";
+			Detstring = "#"+ (string)seqid + "@" + Numstring + "|" + NeuroText.substr((long int)(i+10),1)+"->" + ssign + (string)itoa(dec) + "." + Resstring + "\n";
 		
 			//cout << Numero << " " + NeuroText.substr((long int)(i+10),1)+"-> "<< NumRes[i] <<"\n";
 		
@@ -168,7 +168,7 @@ string Transmem( double beg, double fin, int ent, char* protseq, int check ) {
 			Numero = Primero+Tamanyo;
 			eloc = Numero;
 
-			stringi = "seq: " + NeuroText.substr(10+Primero,Tamanyo) + ", start: " + (string)itoa(bloc) + ", end: " + (string)itoa(eloc) + "\n";
+			stringi = (string)seqid + "\t" + NeuroText.substr(10+Primero,Tamanyo) + "\t" + (string)itoa(bloc) + "\t" + (string)itoa(eloc) + "\n";
 
 			Tamanyo=0;
 			stringf+=stringi;
