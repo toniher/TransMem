@@ -47,16 +47,10 @@ int main( int argc, char *argv[] ) {
 	kseq_destroy(seq);
 	gzclose(fp);
 	return 0;
+	
+}
 
-	// Need to start function from here
-
-	double beg;
-	double fin;
-	int ent; 
-	char* ide;
-	char* protseq;
-	int check;
-
+string transmem( double beg, double fin, int ent, char* ide, char* protseq, int check ) {
 
 	string Neuras(string, string);
 
@@ -196,8 +190,8 @@ int main( int argc, char *argv[] ) {
 	free(NumRes); //Free Mapping Pointer
 
 	stringF = stringF + "=" + stringf;
-	cout << stringF;
-	return 1;
+	return stringF;
+
 }
 
 
