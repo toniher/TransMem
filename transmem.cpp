@@ -14,6 +14,7 @@
 #include <iostream>
 #include <zlib.h>
 #include "kseq.h"
+#include <unistd.h>
 
 #define Act_TanH_Xdiv2(sum, bias)(tanh((sum + bias)/2))
 
@@ -25,25 +26,43 @@ float Argos21_3(const char *);
 string Transmem( double, double, int, char*, char*, int );
 
 int main( int argc, char *argv[] ) {
+
+	int window = 9;
+	int debug = 0;
+	int c;
+	
+	while ((c = getopt (argc, argv, "w:d")) != -1)
+	switch (c) {
+		case 'w':
+			window = atoi(optarg);
+		break;
+		case 'd':
+			debug = 1;
+		break;
+	}
+
+	// printf ("window = %d, debug = %d", window, debug );
+
+	int index;
+	
+	char* file;
+
+	for (index = optind; index < argc; index++) {
+		file = argv[index];
+	}
+
+
 	gzFile fp;
 	kseq_t *seq;
 	int l;
 	
-	if (argc == 1) {
-		fprintf(stderr, "Usage: %s <fastafile>\n", argv[0]);
-		return 1;
-	}
 	
-	fp = gzopen(argv[1], "r");
+	fp = gzopen(file, "r");
 	seq = kseq_init(fp);
 	while ((l = kseq_read(seq)) >= 0) {
 	
 		string outcome;
-		//printf("name: %s\n", seq->name.s);
-		//if (seq->comment.l) printf("comment: %s\n", seq->comment.s);
-		//printf("seq: %s\n", seq->seq.s);
-		//if (seq->qual.l) printf("qual: %s\n", seq->qual.s);
-		outcome = Transmem( 0, 0, 9, seq->name.s, seq->seq.s, 1 );
+		outcome = Transmem( 0, 0, window, seq->name.s, seq->seq.s, debug );
 		cout << outcome;
 	}
 	
