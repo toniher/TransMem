@@ -47,7 +47,6 @@ int main( int argc, char *argv[] ) {
 		cout << outcome;
 	}
 	
-	printf("return value: %d\n", l);
 	kseq_destroy(seq);
 	gzclose(fp);
 	return 0;
@@ -58,21 +57,10 @@ string Transmem( double beg, double fin, int ent, char* protseq, int check ) {
 
 	string Neuras(string, string);
 
-
-	double Beginning, Finish;
-
 	int numf, dec, sig;
 	string NeuroText, stringi, stringf, sbloc, seloc, sres, Numstring, Resstring, Detstring, stringF, ssign;
-	int Minimum, Checked;
 
 	// Control variables
-
-	Beginning=beg;	
-	Finish=fin;
-	Minimum=ent;	// Minimum TM stretch size
-
-	Checked=check;	// Display correspondence to NN
-
 
 	NeuroText= protseq;	// Sequence
 
@@ -85,9 +73,9 @@ string Transmem( double beg, double fin, int ent, char* protseq, int check ) {
 	int LastTM, CutOff;
 
 	//Control variables are assigned
-	Inic=Beginning;
-	Fina=Finish;
-	CutOff=Minimum;
+	Inic=beg;
+	Fina=fin;
+	CutOff=ent;
 
 	//Array of mappings to NN made from seq length
 	LonSeq = NeuroText.length(); 
@@ -106,7 +94,7 @@ string Transmem( double beg, double fin, int ent, char* protseq, int check ) {
 
 		NumRes[i]=Argos21_3(NeuroText.substr((long int)i,21).c_str()); // Sent to Argos
 	
-		if(Checked==1){
+		if(check==1){
 
 			// Display NN mappings
 			Numero = i;
@@ -117,7 +105,7 @@ string Transmem( double beg, double fin, int ent, char* protseq, int check ) {
 			if (sig==1) {ssign="-";}
 			if (sig==0) {ssign="+";}
 		
-			Detstring = Numstring + "|" + NeuroText.substr((long int)(i+10),1)+"->" + ssign + (string)itoa(dec) + "." + Resstring + "&";
+			Detstring = Numstring + "|" + NeuroText.substr((long int)(i+10),1)+"->" + ssign + (string)itoa(dec) + "." + Resstring + "\n";
 		
 			//cout << Numero << " " + NeuroText.substr((long int)(i+10),1)+"-> "<< NumRes[i] <<"\n";
 		
@@ -180,7 +168,7 @@ string Transmem( double beg, double fin, int ent, char* protseq, int check ) {
 			Numero = Primero+Tamanyo;
 			eloc = Numero;
 
-			stringi = NeuroText.substr(10+Primero,Tamanyo) + "|" + (string)itoa(bloc) + "-" + (string)itoa(eloc) + "&";
+			stringi = "seq: " + NeuroText.substr(10+Primero,Tamanyo) + ", start: " + (string)itoa(bloc) + ", end: " + (string)itoa(eloc) + "\n";
 
 			Tamanyo=0;
 			stringf+=stringi;
@@ -192,7 +180,7 @@ string Transmem( double beg, double fin, int ent, char* protseq, int check ) {
 	
 	free(NumRes); //Free Mapping Pointer
 
-	stringF = stringF + "=" + stringf;
+	stringF = stringF + stringf;
 	return stringF;
 
 }
