@@ -22,7 +22,7 @@ using namespace std;
 KSEQ_INIT(gzFile, gzread)
 
 float Argos21_3(const char *);
-
+string Transmem( double, double, int, char*, int );
 
 int main( int argc, char *argv[] ) {
 	gzFile fp;
@@ -37,10 +37,14 @@ int main( int argc, char *argv[] ) {
 	fp = gzopen(argv[1], "r");
 	seq = kseq_init(fp);
 	while ((l = kseq_read(seq)) >= 0) {
+	
+		string outcome;
 		printf("name: %s\n", seq->name.s);
 		if (seq->comment.l) printf("comment: %s\n", seq->comment.s);
 		printf("seq: %s\n", seq->seq.s);
 		if (seq->qual.l) printf("qual: %s\n", seq->qual.s);
+		outcome = Transmem( 0, 0, 9, seq->seq.s, 1 );
+		cout << outcome;
 	}
 	
 	printf("return value: %d\n", l);
@@ -50,7 +54,7 @@ int main( int argc, char *argv[] ) {
 	
 }
 
-string transmem( double beg, double fin, int ent, char* ide, char* protseq, int check ) {
+string Transmem( double beg, double fin, int ent, char* protseq, int check ) {
 
 	string Neuras(string, string);
 
@@ -58,7 +62,7 @@ string transmem( double beg, double fin, int ent, char* ide, char* protseq, int 
 	double Beginning, Finish;
 
 	int numf, dec, sig;
-	string ID, NeuroText, stringi, stringf, sbloc, seloc, sres, Numstring, Resstring, Detstring, stringF, ssign;
+	string NeuroText, stringi, stringf, sbloc, seloc, sres, Numstring, Resstring, Detstring, stringF, ssign;
 	int Minimum, Checked;
 
 	// Control variables
@@ -70,7 +74,6 @@ string transmem( double beg, double fin, int ent, char* ide, char* protseq, int 
 	Checked=check;	// Display correspondence to NN
 
 
-	ID = ide;	// ID of peptide
 	NeuroText= protseq;	// Sequence
 
 	int i, LonSeq, Primero, Tamanyo;
