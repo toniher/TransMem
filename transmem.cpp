@@ -18,6 +18,8 @@
 
 #define Act_TanH_Xdiv2(sum, bias)(tanh((sum + bias)/2))
 
+const int fillX = 10; 
+
 using namespace std;
 
 KSEQ_INIT(gzFile, gzread)
@@ -108,7 +110,11 @@ string Transmem( double beg, double fin, int ent, char* seqid, char* protseq, in
 
 	// cout << ID + "\n" + NeuroText+ "\n" <<LonSeq << " residues\n\n"; //Print out ID, sequence and num of residues.
 
-	NeuroText="XXXXXXXXXX"+NeuroText+"XXXXXXXXXX";
+	int x;
+	for ( x = 0; x < fillX; x++ ) {
+	
+		NeuroText = "X"+NeuroText+"X";
+	}
 
 
 	// Begin iteration for sequence
@@ -128,9 +134,7 @@ string Transmem( double beg, double fin, int ent, char* seqid, char* protseq, in
 			if (sig==1) {ssign="-";}
 			if (sig==0) {ssign="+";}
 		
-			Detstring = "#"+ (string)seqid + "@" + Numstring + "|" + NeuroText.substr((long int)(i+10),1)+"->" + ssign + (string)itoa(dec) + "." + Resstring + "\n";
-		
-			//cout << Numero << " " + NeuroText.substr((long int)(i+10),1)+"-> "<< NumRes[i] <<"\n";
+			Detstring = "#"+ (string)seqid + "@" + Numstring + "|" + NeuroText.substr((long int)(i+fillX),1)+"->" + ssign + (string)itoa(dec) + "." + Resstring + "\n";
 		
 			stringF+=Detstring;
 
@@ -177,28 +181,29 @@ string Transmem( double beg, double fin, int ent, char* seqid, char* protseq, in
 			}
 		}
 
-		if(Tamanyo>=CutOff){ //Print out if enough residues in stretch.
+		if(Tamanyo>=CutOff) { //Print out if enough residues in stretch.
 
 			i=Primero+Tamanyo;
 			LastTM=i;
 			Numero=Primero;
+			
+			if ( LonSeq - ( Primero+Tamanyo )  > CutOff  ) {
+			
+				Resultado=Resultado.substr(1,Primero-1)+Resultado.substr(Primero,Tamanyo)+Resultado.substr(Primero+Tamanyo,(LonSeq-(Primero+Tamanyo-1)));
 
+				bloc = Numero;
+				Numero = Primero+Tamanyo;
+				eloc = Numero;
+			
+				stringi = (string)seqid + "\t" + NeuroText.substr(fillX+Primero,Tamanyo) + "\t" + (string)itoa(bloc) + "\t" + (string)itoa(eloc) + "\n";
 
-			Resultado=Resultado.substr(1,Primero-1)+Resultado.substr(Primero,Tamanyo)
-					+Resultado.substr(Primero+Tamanyo,LonSeq-(Primero+Tamanyo-1));
+				Tamanyo=0;
+				stringf+=stringi;
+			}
 
-			bloc = Numero;
-			Numero = Primero+Tamanyo;
-			eloc = Numero;
+		} 
 
-			stringi = (string)seqid + "\t" + NeuroText.substr(10+Primero,Tamanyo) + "\t" + (string)itoa(bloc) + "\t" + (string)itoa(eloc) + "\n";
-
-			Tamanyo=0;
-			stringf+=stringi;
-
-			} 
-
-			else {i=Primero+Tamanyo;}
+		else {i=Primero+Tamanyo;}
 	}
 	
 	free(NumRes); //Free Mapping Pointer
