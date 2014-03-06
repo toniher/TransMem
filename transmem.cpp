@@ -31,13 +31,17 @@ int main( int argc, char *argv[] ) {
 	int debug = 0;
 	int c;
 	
-	while ((c = getopt (argc, argv, "w:d")) != -1)
+	while ((c = getopt (argc, argv, "w:dh")) != -1)
 	switch (c) {
 		case 'w':
 			window = atoi(optarg);
 		break;
 		case 'd':
 			debug = 1;
+		break;
+		case 'h':
+			fprintf(stderr, "USAGE:\n\ttransmem -w 12 -d Q9BTV4.fasta\nThis reads Q9BTV4.fasta file with a 12 window size and debugging option.\n");
+			exit(0);
 		break;
 	}
 
