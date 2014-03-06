@@ -34,7 +34,7 @@ Result lines include separated by tabs:
 * a candidate transmembrane stretch of aas
 * starting and ending positions within the query sequence.
 
-
+<pre>
 #sp|Q9BTV4|TMM43_HUMAN@392|R->-1.1
 #sp|Q9BTV4|TMM43_HUMAN@393|V->-1.1
 #sp|Q9BTV4|TMM43_HUMAN@394|P->-1.1
@@ -47,4 +47,4 @@ sp|Q9BTV4|TMM43_HUMAN	GMFVGLMAFLLSFYL	34	49
 sp|Q9BTV4|TMM43_HUMAN	AAGWMAMFMGLNLM	312	326
 sp|Q9BTV4|TMM43_HUMAN	LVNIGLKAFAFCVATSLTLLTVAAGWLF	342	370
 sp|Q9BTV4|TMM43_HUMAN	LWALLIAGLALVPIL	373	388
-
+</pre>
