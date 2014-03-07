@@ -186,19 +186,22 @@ string Transmem( double beg, double fin, int ent, char* seqid, char* protseq, in
 			i=Primero+Tamanyo;
 			LastTM=i;
 			Numero=Primero;
+		
+			int endIter;
+			endIter = LonSeq-(Primero+Tamanyo-1);
 			
-			if ( LonSeq - ( Primero+Tamanyo )  > CutOff  ) {
+			if ( LonSeq < endIter+Resultado.length() ) {
 			
-				Resultado=Resultado.substr(1,Primero-1)+Resultado.substr(Primero,Tamanyo)+Resultado.substr(Primero+Tamanyo,(LonSeq-(Primero+Tamanyo-1)));
+					Resultado=Resultado.substr(1,Primero-1)+Resultado.substr(Primero,Tamanyo)+Resultado.substr(Primero+Tamanyo,endIter);
 
-				bloc = Numero;
-				Numero = Primero+Tamanyo;
-				eloc = Numero;
+					bloc = Numero;
+					Numero = Primero+Tamanyo;
+					eloc = Numero;
 			
-				stringi = (string)seqid + "\t" + NeuroText.substr(fillX+Primero,Tamanyo) + "\t" + (string)itoa(bloc) + "\t" + (string)itoa(eloc) + "\n";
+					stringi = (string)seqid + "\t" + NeuroText.substr(fillX+Primero,Tamanyo) + "\t" + (string)itoa(bloc) + "\t" + (string)itoa(eloc) + "\n";
 
-				Tamanyo=0;
-				stringf+=stringi;
+					Tamanyo=0;
+					stringf+=stringi;
 			}
 
 		} 
