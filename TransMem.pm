@@ -7,6 +7,16 @@ require Exporter;
 
 sub process {
 
+	my $seqid = shift;
+	my $protseq = shift;
+	
+	my $begin=0;
+	my $end=0;
+	my $check = 0;
+	my $ent = 9;
+	
+	my $string;
+
 	#Beginning of C++ program core
 	use Inline CPP => Config =>
 		           INC => "-I ./";
@@ -26,7 +36,6 @@ sub process {
 	#include "itoa.h"
 	#include <string>
 	#include <iostream>
-	#include <zlib.h>
 	#include <unistd.h>
 
 	#define Act_TanH_Xdiv2(sum, bias)(tanh((sum + bias)/2))
@@ -37,8 +46,7 @@ sub process {
 
 	float Argos21_3(const char *);
 
-	SV* Transmem( double beg, double fin, int ent, char* seqid, char* protseq, int check ) {
-	// string Transmem( double beg, double fin, int ent, char* seqid, char* protseq, int check ) {
+	SV* transmem( double beg, double fin, int ent, char* seqid, char* protseq, int check ) {
 
 		string Neuras(string, string);
 
@@ -238,4 +246,6 @@ sub process {
 	
 ENDCPP
 	
+	$string = transmem($begin, $end, $ent, $seqid, $protseq, $check) ; #Get output from C++
+	return $string; 
 }
