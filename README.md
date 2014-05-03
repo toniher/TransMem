@@ -7,6 +7,9 @@ Reference:
 'TransMem': a neural network implemented in Excel spreadsheets for predicting transmembrane domains of proteins.
 http://www.ncbi.nlm.nih.gov/pubmed/9183525
 
+SNNS.gbl file contains the neural network created with SNNS (Stuttgart Neural Network Simulator) http://www.ra.cs.uni-tuebingen.de/SNNS/ as explained in the paper above.
+
+
 Build
 =====
 
