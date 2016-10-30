@@ -3,6 +3,8 @@ TransMem
 
 Tool for assigning putative transmembrane regions in a protein sequence
 
+[![DOI](https://zenodo.org/badge/15440893.svg)](https://zenodo.org/badge/latestdoi/15440893)
+
 Reference:
 'TransMem': a neural network implemented in Excel spreadsheets for predicting transmembrane domains of proteins.
 http://www.ncbi.nlm.nih.gov/pubmed/9183525
